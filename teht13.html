@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+
+<head>
+    <title>flex</title>
+    <style>
+        .wrapperi {
+            margin: 5px;
+        }
+
+        .row {
+            display: flex;
+            flex-direction: row;
+            flex-wrap: wrap;
+            width: 100%;
+        }
+
+        .column {
+            display: flex;
+            flex-direction: column;
+            flex-basis: 100%;
+            flex: 1;
+            background-color: gold;
+            margin: 5px;
+            padding: 10px;
+        }
+
+        .centerbody {
+            display: flex;
+            flex-direction: column;
+            flex-basis: 100%;
+            flex: 2;
+            background-color: gold;
+            margin: 5px;
+            padding: 10px;
+        }
+
+        #contact {
+            text-align: center;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="wrapperi">
+        <div class="row">
+            <div class="column">
+                <div style="text-align: center;">Welcome to Savonia</div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="column">
+                <div>
+                    <ul style="list-style: none;">
+                        <li>Studying</li>
+                        <li>Classes</li>
+                        <li>IT</li>
+                        <li>Government</li>
+                        <li>Spare time</li>
+                        <li>Others</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="centerbody">
+                <div>
+                    tekstiä
+                </div>
+            </div>
+            <div class="column">
+                Mainosasiaa
+            </div>
+        </div>
+        <div class="row">
+            <div class="column">
+                <div id="contact">
+                    Contact information
+                </div>
+            </div>
+        </div>
+    </div>
+</body>

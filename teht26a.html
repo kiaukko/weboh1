@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <script>
+        function tarkasta26() {
+            document.getElementById("error").innerText = "";
+
+            nimi = document.getElementById("nimi").value;
+            osoite = document.getElementById("osoite").value;
+
+            nimi = nimi.trim();
+            osoite = osoite.trim();
+
+            if (nimi.length < 5 && osoite.length < 5) {
+                document.getElementById("error").innerText = "Nimi ja osoite väärin";
+            }
+            else if (nimi.length < 5) {
+                document.getElementById("error").innerText = "Nimi väärin";
+            }
+            else if (osoite.length < 5) {
+                document.getElementById("error").innerText = "Osoite väärin";
+            }
+            else {
+                naytaTulos(nimi, osoite);
+            }
+        }
+
+        function tarkasta27() {
+            document.getElementById("error_ammatti").innerText = ""; 
+
+            onro = document.getElementById("opiskelijanro").value;
+
+            if (onro.length==0 && document.getElementById("opiskelija").checked) {
+                alert("Opiskelijanumero on pakollinen");
+                return false;
+            }
+            if (onro.length!=0) {
+            onroteksti = "Opiskelijanro: "
+            document.getElementById("o_nro").innerText = onroteksti.concat(onro);
+            }
+
+            e = document.getElementById("ammatti");
+            ammatti = e.options[e.selectedIndex].value;
+
+            if (ammatti == "tyhja") {
+                document.getElementById("error_ammatti").innerText = "Valitse ammatti";
+            }
+            else {
+                document.getElementById("tyo").innerText = ammatti;
+            }
+
+            var array = []
+            var checkboxes = document.querySelectorAll('input[type=checkbox]:checked')
+
+            for (var i = 0; i < checkboxes.length; i++) {
+                array.push(checkboxes[i].value)
+            }
+
+            palautusteksti = ""
+
+            if (array.length!=0) {
+                optioteksti = "Valitsit seuraavat optiot:";
+                palautusteksti = optioteksti.concat(array);
+            }
+
+            document.getElementById("optiot").innerText = palautusteksti;
+        }
+
+        function naytaTulos(nimi, osoite) {
+            document.getElementById("data").innerText = nimi + "," + osoite;
+        }
+
+        function naytaopiskelija() {
+            checki = document.getElementById("opiskelija");
+
+            teksti = document.getElementById("aputeksti");
+            inputti = document.getElementById("opiskelijanro");
+
+            if (checki.checked == true) {
+                teksti.style.display = "block";
+                inputti.style.display = "block";
+            }
+            else {
+                teksti.style.display = "none";
+                inputti.style.display = "none";
+            }
+        }
+    </script>
+
+</head>
+
+<body>
+
+    <!--npx cypress run -r ./CypressReporter.js -s ./t26a-30a.test.js -q-->
+
+    <h4 id="error"></h4>
+    <h4 id="error_ammatti"></h4>
+
+    <form>
+        <label for="fname">Name:</label><br>
+        <input type="text" id="nimi" name="fname"><br>
+        <label for="lname">Address:</label><br>
+        <input type="text" id="osoite" name="address"><br><br>
+        <select name="Ammatti" id="ammatti">
+            <option value="tyhja"></option>
+            <option value="kokki">kokki</option>
+            <option value="rallikuski">rallikuski</option>
+            <option value="hitsaaja">hitsaaja</option>
+        </select><br><br>
+        <input type="checkbox" id="erityisruokavalio" value="Erityisruokavalio">
+        <label for="erityisruokavalio"> Erityisruokavalio</label><br>
+        <input type="checkbox" id="tarvitsee_majoituksen" value="Tarvitsee majoituksen">
+        <label for="tarvitsee_majoituksen"> Tarvitsen majoituksen</label><br>
+        <input type="checkbox" id="opiskelija" value="Opiskelija" onclick="naytaopiskelija()">
+        <label for="opiskelija"> Opiskelija</label><br><br>
+        <label id="aputeksti" style="display: none;">Opiskelijanumero:</label><br>
+        <input type="text" id="opiskelijanro" style="display: none;"><br><br>
+    </form>
+
+    <button type="button" id="reg" onclick="tarkasta26()">Rekisteröidy 26</button>
+    <button type="button" id="reg_27" onclick="tarkasta27()">Rekisteröidy 27</button>
+
+    <div id="results">
+        <p id="data"></p>
+        <p id="optiot"></p>
+        <p id="tyo"></p>
+        <p id="o_nro"></p>
+    </div>
+
+
+</body>
+
+</html>

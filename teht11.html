@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html>
+<body>
+<table>
+
+<form>
+    <tr>
+        <td><label>Oppilaitos:</label></td>
+        <td><input value="Savonia AMK" readonly type="text"></td>
+    </tr>
+    <tr>
+        <td><label>Nimi:</label></td>
+        <td><input type="text" name="nimi"></td>
+    </tr>
+
+    <tr>
+        <td><label>Vuosikurssi: </label></td>
+        <td><input type="password" name="vuosikurssi"></td>
+    </tr>
+    <tr>
+        <td><label for="course">Kurssin nimi:</label></td>
+        <td>
+    <select name="coursematikka" multiple>
+        <optgroup value="matematiikka">
+            <option name="coursema1">ykkösryhmä</option>
+            <option name="coursema2">kakkosryhmä</option>
+        </optgroup>
+        <option value="fysiikka">Fysiikka</option>
+        <option value="tietorakenteet">Tietorakenteet</option>
+    </select>
+    </td>
+    </tr>
+    <tr>
+    <td><label for="tyyppi">Kurssin tyyppi:</label></td>
+
+    <td><select name="tyyppi">
+        <option value="Lahiopetus">Lahiopetus</option>
+        <option value="etaopetus">Etäopetus</option>
+        <option value="hybridi">Hybridi</option>
+    </select>
+    </td>
+    </tr>
+    <tr>
+        <td>
+    <p>Sukupuoli:</p>
+    <input type="radio" id="nainen" value="nainen">
+    <label for="nainen">nainen</label><br>
+    <input type="radio" id="mies" value="mies">
+    <label for="mies">mies</label><br>
+    <input type="radio" id="muu" value="muu">
+    <label for="muu">muu</label><br>
+    </td>
+    </tr>
+
+    <tr>
+        <td>
+    <p>Harrastukset:</p>
+    <input type='checkbox' name=hobbiespelaaminen id="pelaaminen" value="pelaaminen">
+    <label for="pelaaminen">pelaaminen</label><br>
+    <input type='checkbox' name=hobbiesjalkapallo id="jalkapallo" value="jalkapallo">
+    <label for="jalkapallo">jalkapallo</label><br>
+    <input type='checkbox' name=hobbieslenkkeily id="lenkkeily" value="lenkkeily" checked>
+    <label for="lenkkeily">lenkkeily</label><br>
+    <input type='checkbox' name=hobbieshiihto id="hiihto" value="hiihto">
+    <label for="hiihto">hiihto</label><br>
+    </td>
+    </tr>
+
+    <tr>
+        <td>
+    <input type="submit" value="Lähetä">
+    <input type="reset" value="Tyhjennä">
+    <input type="image" src="https://media0.giphy.com/media/RtdRhc7TxBxB0YAsK6/giphy.gif">
+</td>
+    </tr>
+
+</form>
+</table>
+
+</body>
+</html>

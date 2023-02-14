@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="https://code.jquery.com/ui/1.13.0/themes/sunny/jquery-ui.css">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://code.jquery.com/ui/1.13.0/jquery-ui.js"></script>
+    <script src='datepicker-fi.js' type='text/javascript'></script>
+
+    <script>
+        $(document).ready(function () {
+
+            $(function () {
+                $("#pvm").datepicker();
+
+                $("#pvm").val();
+
+                $("#pvm").on("change", function () {
+                    var selected = $(this).val();
+                    $("#pvm_result").text(selected);
+                    $("#pvm_result").css("color", "black");
+                });
+            });
+
+            (function (factory) {
+                "use strict";
+
+                if (typeof define === "function" && define.amd) {
+
+                    // AMD. Register as an anonymous module.
+                    define(["../widgets/datepicker"], factory);
+                } else {
+
+                    // Browser globals
+                    factory(jQuery.datepicker);
+                }
+            })
+
+                (function (datepicker) {
+                    "use strict";
+
+                    datepicker.regional.fi = {
+                        closeText: "Sulje",
+                        prevText: "Edellinen",
+                        nextText: "Seuraava",
+                        currentText: "Tänään",
+                        monthNames: ["Tammikuu", "Helmikuu", "Maaliskuu", "Huhtikuu", "Toukokuu", "Kesäkuu",
+                            "Heinäkuu", "Elokuu", "Syyskuu", "Lokakuu", "Marraskuu", "Joulukuu"],
+                        monthNamesShort: ["Tammi", "Helmi", "Maalis", "Huhti", "Touko", "Kesä",
+                            "Heinä", "Elo", "Syys", "Loka", "Marras", "Joulu"],
+                        dayNamesShort: ["Su", "Ma", "Ti", "Ke", "To", "Pe", "La"],
+                        dayNames: ["Sunnuntai", "Maanantai", "Tiistai", "Keskiviikko", "Torstai", "Perjantai", "Lauantai"],
+                        dayNamesMin: ["Su", "Ma", "Ti", "Ke", "To", "Pe", "La"],
+                        weekHeader: "Vk",
+                        dateFormat: "d.m.yy",
+                        minDate: "1.8.2020",
+                        maxDate: "31.12.2020",
+                        firstDay: 1,
+                        isRTL: false,
+                        showMonthAfterYear: false,
+                        yearSuffix: ""
+                    };
+                    datepicker.setDefaults(datepicker.regional.fi);
+
+                    return datepicker.regional.fi;
+
+                });
+
+            $(function () {
+                $("#autoc").autocomplete({
+                    source: <!--insert url-->
+                });
+            });
+
+            $(function () {
+                $("#dialog").dialog({
+                    autoOpen: false,
+                    buttons: [
+                        {
+                            text: "Tallenna",
+                            click: function () {
+                                var dialoginimi = $("#d_nimi").val();
+                                var dialogitunnus = $("#d_tunnus").val();
+
+                                if ((dialoginimi.length < 5 || dialogitunnus.length < 5)) {
+
+                                    $("#d_error").text("Data väärin");
+                                }
+                                else {
+                                    $("#d_content").show();
+                                    $("#d_results").text(dialoginimi + ", " + dialogitunnus);
+                                    $(this).dialog("close");
+                                }
+                            }
+                        },
+                        {
+                            text: "Peruuta",
+                            click: function () {
+                                $(this).dialog("close");
+
+                            }
+                        }
+                    ]
+                });
+            });
+
+            $("#d_content").hide();
+
+            $("#rekisteroidy").button();
+            $("#rekisteroidy").click(function () {
+                $("#dialog").dialog("open");
+            });
+
+            <!--End of tehtävät-->
+
+            $("#hae_tyypit").button();
+            $("#hae_data").button();
+
+            var settingstuotetyyppinimi = {
+                "url": <!--insert url-->,
+                "method": "GET",
+                "timeout": 0,
+            };
+
+            var settings2 = {
+                "url": <!--insert url-->,
+                "method": "GET",
+                "timeout": 0,
+            };
+
+
+
+            $("#hae_tyypit").click(function () {
+                var tulos;
+                $.ajax(settingstuotetyyppinimi).done(function (response) {
+                    console.log(response);
+                    for (x in response) {
+                        $('#tuotetyypit').append($('<option>', {
+                            value: response[x].id,
+                            text: response[x].nimi
+                        }));
+                    };
+                });
+
+
+            });
+
+            $("#hae_data").click(function () {
+                $.ajax(settings2).done(function (response2) {
+                    console.log(response2);
+                    for (x in response2) {
+                        $('#tuotteet').append("<tr><td>" + response2[x].nimi + response2[x].selite + response2[x].tyyppi_id + response2[x].ostopvm + response2[x].valmistaja + response2[x].hinta + "<td><tr>");
+                    };
+                });
+            });
+
+            $("#hae").button();
+
+            $.ajax(settingstuotetyyppinimi).done(function (response) {
+                console.log(response);
+                for (x in response) {
+                    $('#tuotetyypit_he').append($('<option>', {
+                        value: response[x].id,
+                        text: response[x].nimi
+                    }));
+                };
+            });
+
+            $("#hae").click(function () {
+                let hakuurl = "http://localhost:3000/tuotetyyppi";
+
+                var hakutyyppi = $("#tuotetyypit_he").find(":selected").val();
+                var hakunimi = $("#nimi_he").val();
+                var hakuvalmistaja = $("#valmistaja_he").val();
+
+                if (hakunimi.length > 0) {
+                    hakuurl = hakuurl + "?nimi=" + hakunimi;
+                    console.log(hakuurl);
+
+                }
+                if (hakuvalmistaja.length > 0) {
+                    hakuurl = hakuurl + "?nimi=" + hakunimi;
+                }
+
+                var settings3 = {
+                    "url": hakuurl,
+                    "method": "GET",
+                    "timeout": 0,
+                };
+
+                $.ajax(settings3).done(function (tulokset) {
+                    console.log(tulokset);
+                });
+
+
+            })
+        });
+
+    </script>
+
+
+</head>
+
+<body>
+
+    <!--npx cypress run -r ./CypressReporter.js -s ./teht31_37.test.js -q-->
+
+    <!--Tehtävänanto: 32. Tee html-sivu, jossa käyttäjä voi valita syntymäpvm:n jQuery UI:n 
+    datepicker:n avulla (input-elementti, id=pvm, sallittu arvoalue on 1.8.2020 - 31.12.2020). 
+    Kun käyttäjä on valinnut pvm:n, näkyy valittu pvm <p>-elementissä 
+    (jossa lukee aluksi "Pvm:ää ei ole valittu", id=pvm_result) punaisella tekstillä. 
+    Datepicker:ssä täytyy näkyä pvm:t ja tekstit suomalaisessa muodossa.-->
+
+    <p>Date: <input type="text" id="pvm"></p>
+    <p id="pvm_result" style="color:red;">Pvm:ää ei ole valittu</p>
+    <br><br><br><br>
+
+    <!-- Tehtävänanto: 33. Tee html-sivu, jossa käytät jQuery UI:n Autocomplete-komponenttia 
+    (input-elementti, id=autoc). Käyttäjä voi syöttää kenttään kaupunkien 
+    nimiä (syntymäpaikka). Serverillä on palvelu http://codez.savonia.fi/jussi/api/json_data.php,
+    jota käytetään kaupunkien hakemiseen (et siis voi tehdä esim. 
+    paikallista taulukkoa tms kaupungeille).-->
+
+    <div class="ui-widget">
+        <label for="autoc">Syntymäpaikka: </label>
+        <input id="autoc">
+    </div>
+    <br><br><br><br>
+
+    <!-- Tehtävänanto: 34. Tee html-sivu, jolla käyttäjän pitää 
+    rekisteröityä ennenkuin hän voi käyttää sivua. Kun sivu avautuu, 
+    näkyy käyttäjälle vain Rekisteröidy-nappi (id=rekisteroidy), sivulla 
+    on myös p-elementti (id=d_content), jossa lukee "Tämä oli alunperin 
+    piilossa, mutta näkyykö nyt?", mutta tämä on oletuksena piilossa 
+    (HUOM! Toki muiden tehtävien elementit saavat olla näkyvissä, tulkitse 
+    tätä niin että vain tähän tehtävään liittyvistä elementeistä on 
+    näkyvissä vain em. nappi). Rekisteröidy-nappia painamalla avautuu dialogi 
+    (otsikossa lukee "Rekisteröityminen"), jossa käyttäjältä kysytään nimi (id=d_nimi) 
+    ja tunnus (id=d_tunnus) jQuery UI:n dialogin avulla. Jos käyttäjä syötti 
+    molemmat arvot ja kenttien datan pituus on vähintään 5 merkkiä, on data oikein 
+    ja dialogi voidaan sulkea Tallenna-napilla (dialogi voidaan sulkea myös Peruuta-napilla
+    tallentamatta tietoja). Jos data oli väärin, ei dialogia voi sulkea ja 
+    käyttäjälle näytetään virheviesti dialogissa olevassa h3-elementissä 
+    (id=d_error) muodossa "Data väärin".
+
+    Kun rekisteröityminen onnistui, suljetaan dialogi, ja näytetään (id=d_content):n 
+    sisältö. Sivulla näytetään rekisteröityneen käyttäjän tiedot <p>-elementissä 
+    (id=d_results) muodossa 'nimi, tunnus' (esim. "Maija, maija123").-->
+
+    <button type="button" id="rekisteroidy">Rekisteröidy</button>
+    <p id="d_content">Tämä oli alunperin piilossa, mutta näkyykö nyt?</p>
+    <p id="d_results"></p><br><br>
+
+    <div id="dialog" title="Rekisteröityminen">
+        <label>Nimi:</label><br>
+        <input type="text" id="d_nimi"><br>
+        <label>Tunnus:</label><br>
+        <input type="text" id="d_tunnus">
+        <h3 id="d_error"></h3>
+    </div>
+
+    <!--End of tehtävä 34-->
+
+    <button type="button" id="hae_tyypit">Hae tyypit</button>
+    <button type="button" id="hae_data">Hae data</button><br><br>
+
+    <select id="tuotetyypit">
+    </select>
+
+    <table id="tuotteet">
+
+    </table> <br><br><br>
+
+    <label>Tyyppi:</label><br>
+    <select id="tuotetyypit_he">
+        <option id="-1"></option>
+    </select><br>
+
+    <label>Nimi:</label><br>
+    <input type="text" id="nimi_he"> <br>
+    <label>Valmistaja:</label><br>
+    <input type="text" id="valmistaja_he"><br><br>
+
+    <button type="button" id="hae">Hae data</button>
+
+    <button type="button" id="haeNappi">Hae</button><br><br>
+</body>
+
+</html>

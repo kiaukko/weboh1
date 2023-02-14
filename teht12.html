@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<title>esmeerk</title>
+<style>
+    #grid {
+        display: grid;
+        grid-template-rows: 1fr 1fr 1fr;
+        grid-template-columns: 1fr 2fr 1fr;
+        grid-gap: 10px;
+    }
+    #grid>div {
+        padding: 20px;
+        background-color: gold;
+    }
+
+    .item1 {
+        grid-column-start: 1;
+        grid-column-end: 4;
+        text-align: center;
+    }
+
+    .lastitem {
+        grid-column-start: 1;
+        grid-column-end: 4;
+        text-align: center;
+    }
+
+    .leftitem {
+        grid-column: 1;
+        grid-row: 1;
+    }
+
+    .rightitem {
+        grid-column: 2;
+        grid-row: 1;
+    }
+</style>
+
+<div id="grid">
+    <div class="item1" style="text-align: center;">Welcome to Savonia</div>
+    <div><ul style="list-style: none;">
+        <li>Studying</li>
+        <li>Classes</li>
+        <li>IT</li>
+        <li>Government</li>
+        <li>Spare time</li>
+        <li>Others</li>
+    </ul></div>
+    <div>
+        <div class="leftitem"> laatikko 1</div>
+        <div class="rightitem">laatikko 2</div>
+    </div>
+    <div>Mainosasiaa</div>
+    <div class="lastitem" style="text-align: center;">Contact information</div>
+</div>

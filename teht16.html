@@ -7,7 +7,7 @@
             grid-template-columns: 1fr 1fr;
             grid-template-rows: 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
             grid-gap: 2px;
-            max-width: 300px;
+            max-width: 500px;
             max-height: 500px;
             margin-left: auto;
             margin-right: auto;
@@ -15,19 +15,37 @@
 
         #grid>div {
             font-weight: bold;
+            margin-bottom: 30px;
         }
 
         .tekstit {
+            position: relative;
             grid-column: 1;
             font-weight: bold;
             text-align: right;
             padding: 10px;
         }
 
+        .tekstit>div{
+            margin-top:10px;
+        }
+
+        .tekstit .tyhjenna{
+            min-height: 31px;
+            position: absolute;
+            bottom: 0;
+            right: 0;
+        }
+
         .muut {
             grid-column: 2;
-            margin-left: auto;
             padding: 10px;
+        }
+
+        .muut>div{
+            margin-top: 10px;
+            margin-left: auto;
+            margin-right: 0;
         }
     </style>
 </head>
@@ -43,7 +61,7 @@
             <div>Kurssin toteutus:</div>
             <div>Sukupuoli:</div>
             <div>Harrastukset:</div>
-            <div><button type="button">Tyhjennä</button></div>
+            <div class="tyhjenna"><button type="button">Tyhjennä</button></div>
         </div>
         <div class="muut">
             <div><input type="text" name="nimi"></div>
